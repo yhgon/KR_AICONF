@@ -347,7 +347,8 @@ $python distribute.py -c config.json
 ```
 
 # WaveGlow
-after NVIDIA release the source code, I'll update it. 
+check [official site](https://nv-adlr.github.io/WaveGlow) and [**Ryan Prenger, Rafael Valle, and Bryan Catanzaro, WaveGlow: a Flow-based Generative Network for Speech Synthesis** arxiv 1811.00002](https://arxiv.org/abs/1811.00002)
 
+after NVIDIA release the source code, I'll update it. 
 
 
