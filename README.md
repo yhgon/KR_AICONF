@@ -226,6 +226,13 @@ du -h .
 
 check [my fork](https://github.com/yhgon/tacotron2) and [official github](https://github.com/NVIDIA/tacotron2) for issue tracking
 
+for information, 
+check keithito's [tensorflow tacotron](https://github.com/keithito/tacotron), 
+[Rayhane-mamah's Tensorflow Tacotron2 implementation](https://github.com/Rayhane-mamah/Tacotron-2)
+[Ryuich's Tacotron](https://github.com/r9y9/tacotron_pytorch)
+
+
+
 ## step1. configure 
 Prepare NGC with pytorhc & utilities(librosa, tensorflow for hparam, tensorboardX for log, matplotlib/scikit-learn for chart
 
@@ -304,6 +311,9 @@ EXPOSE 8888
 
 # NV-WaveNet
 you also check [my fork](https://github.com/yhgon/nv-wavenet) and [official github](https://github.com/NVIDIA/nv-wavenet) site for issue tracking
+
+check [Ryuich's WaveNet](https://github.com/r9y9/wavenet_vocoder)
+
 
 you could run nv-wavenet using same docker image when you build for tacotron2
 
