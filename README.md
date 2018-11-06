@@ -17,6 +17,118 @@ mpirun --allow-run-as-root  --bind-to socket   -np 16 python /workspace/nvidia-e
 
 # Pix2PixHD
 
+## Docker files
+there are some  utilities CycleGan, Pix2PixHD and PGGAN
+
+```
+FROM nvcr.io/nvidia/pytorch:18.09-py3
+
+# APT update 
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
+	apt-utils
+
+# utils
+RUN apt-get install -y --no-install-recommends  \
+	build-essential \
+	pciutils \ 
+	nano \
+	vim \
+	less \
+	ca-certificates \ 
+	unzip \
+	zip \
+	p7zip \
+	tar \
+	pv 
+
+# related build 
+RUN apt-get install -y --no-install-recommends \
+        build-essential \
+        cmake \
+        git \
+	subversion \
+	swig  
+
+# realted internet 
+RUN apt-get install -y --no-install-recommends \
+        curl \
+	wget \
+	rsync
+
+# related multimedia
+RUN apt-get install -y --no-install-recommends \
+        libjpeg-dev \
+        libpng-dev \
+	sox \
+	libsox-dev \
+	ffmpeg 	 
+	
+RUN pip install --upgrade  pip
+RUN pip install setuptools tqdm toml prompt-toolkit  ipykernel jupyter # python general 
+RUN pip install numpy scipy sklearn              # python numpy
+RUN pip install Pillow matplotlib opencv-python moviepy   # python graphic
+RUN pip install librosa pysox                    # python sound
+RUN pip install tensorflow tensorboardX          # tensorflow
+RUN pip install Unicode inflect  six sacred                                    
+RUN pip install lws nnmnkwii nltk 
+RUN pip install keras 
+RUN pip install dominate  # for pix2pixHD
+
+EXPOSE 6006
+
+
+```
+
+## prepare dataset
+
+I'm using small citiscape dataset
+```
+drwxr-xr-x+ 14 25223 dip   15 Oct 30 00:46 gtFine
+-rwxr-xr-x+  1 25223 dip 241M Oct 30 00:20 gtFine_trainvaltest.zip
+-rw-r--r--+  1 25223 dip 1.7K Feb 17  2016 license.txt
+```
+
+use below bash script to make cityscale Fine Annotation dataset to fit in Pix2PixHD dataset format
+```
+mkdir test_inst
+mv test/*gtFine_instanceIds.png test_inst/.
+mkdir test_label
+mv test/*gtFine_labelIds.png test_label/.
+
+mkdir train_inst
+mv train/*gtFine_instanceIds.png train_inst/.
+mkdir train_label
+mv train/*gtFine_labelIds.png train_label/.
+
+mkdir val_inst
+mv val/*gtFine_instanceIds.png val_inst/.
+mkdir val_label
+mv val/*gtFine_labelIds.png val_label/.
+
+```
+
+after run bash script, your data folder would be below 
+
+```
+I have no name!@5c5ab6c13517:/mnt/old/dataset/cityscape/gtFine$ du -h .
+9.8M	./test_label
+14M	./val_inst
+9.8M	./test_img
+76M	./train_inst
+9.8M	./test_inst
+12M	./val_label
+16M	./val_img
+88M	./train_json
+91M	./train_img
+11M	./test_json
+65M	./train_label
+18M	./val_json
+414M	
+```
+
+
+## train
 ```
 $ python train.py --name label2city_512p --batchSize 2
  (epoch: 1, iters: 2900, time: 0.431) G_GAN: 0.859 G_GAN_Feat: 2.548 G_VGG: 2.765 D_real: 0.480 D_fake: 0.352 
@@ -32,11 +144,89 @@ End of epoch 1 / 200 	 Time Taken: 261 sec
 End of epoch 2 / 200 	 Time Taken: 184 sec
 ```
 
+
+# PGGAN
+I omit the detail in presentation chcek official [pggan site ](https://github.com/tkarras/progressive_growing_of_gans)
+
+## prepare Dataset
+
+
+CelebA share split 7zfiles but decompress with p7zip in cloude was  very slow. 
+handle CelebA, CelebA HD dataset in cloud, I make some utilities.
+
+- step1. download whole dataset in 7zflies.
+
+- step2. decompress whole file in local storage
+
+- step3. move files in sub folder
+
+```
+#!/bin/bash
+c=1; 
+d=1; 
+mkdir -p SUB_${d}
+for jpg_filelist in *.jpg
+do
+  if [ $c -eq 10000 ]
+  then
+    d=$(( d + 1 )); c=0; mkdir -p SUB_${d}
+  fi
+  mv "$jpg_filelist" SUB_${d}/
+  c=$(( c + 1 ))
+done
+```
+
+- step4. tar each files
+
+```
+for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `; do tar -cvzf ${dir}.tar.gz ${dir}; done
+```
+
+- step5. upload each tar.gz file 
+
+
+- step6. 
+which is not split zip file so you could extract it in parallel. 
+
+```
+du -h .
+768K	./SUB_2
+768K	./SUB_8
+768K	./SUB_10
+771K	./SUB_17
+768K	./SUB_5
+768K	./SUB_1
+768K	./SUB_19
+768K	./SUB_13
+210K	./SUB_21
+768K	./SUB_14
+768K	./SUB_6
+768K	./SUB_4
+771K	./SUB_16
+771K	./SUB_11
+768K	./SUB_9
+768K	./SUB_3
+768K	./SUB_7
+768K	./SUB_15
+768K	./SUB_12
+771K	./SUB_18
+768K	./SUB_20
+16M	.
+```
+
+- Step7 . merge whole subfolder 
+
+- Step8. using preprocessing utility in pggan
+
+
+
+
+
 # Tacotron2
 
 check [my fork](https://github.com/yhgon/tacotron2) and [official github](https://github.com/NVIDIA/tacotron2) for issue tracking
 
-## step1.
+## step1. configure 
 Prepare NGC with pytorhc & utilities(librosa, tensorflow for hparam, tensorboardX for log, matplotlib/scikit-learn for chart
 
 ```
@@ -62,7 +252,7 @@ cp –rf LJSpeech-1.1/wavs ./DUMMY
 default train_file_lists
 ```
 
-## step4. run 
+## step4. run train
 
 in single GPU
 ```
