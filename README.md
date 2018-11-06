@@ -227,8 +227,11 @@ du -h .
 check [my fork](https://github.com/yhgon/tacotron2) and [NVIDIA's official tacotron2](https://github.com/NVIDIA/tacotron2) for issue tracking
 
 for more information, check 
+- [google's tacotron blog](https://google.github.io/tacotron/)
+- [tacotron paper ](https://arxiv.org/abs/1703.10135)
 - [keithito's TF tacotron](https://github.com/keithito/tacotron), 
 - [Ryuich's PYT Tacotron](https://github.com/r9y9/tacotron_pytorch)
+- [tacotron2 paper](https://arxiv.org/abs/1712.05884) 
 - [Rayhane-mamah's TF Tacotron2 implementation](https://github.com/Rayhane-mamah/Tacotron-2)
 
 ## step1. configure 
@@ -311,8 +314,11 @@ EXPOSE 8888
 you also check [my fork](https://github.com/yhgon/nv-wavenet) and [official github](https://github.com/NVIDIA/nv-wavenet) site for issue tracking
 
 More information for WaveNet, check 
+- [WaveNet blog](https://deepmind.com/blog/wavenet-generative-model-raw-audio/) 
+- [WaveNet paper](https://arxiv.org/abs/1609.03499)
 - [Ryuich's WaveNet](https://github.com/r9y9/wavenet_vocoder)
 - [Google's Magenta Nsyth WaveNet](https://github.com/tensorflow/magenta/tree/master/magenta/models/nsynth/wavenet)
+- [Parallel WaveNet paper] (https://arxiv.org/abs/1711.10433)
 - [Parallel WaveNet implementation](https://github.com/andabi/parallel-wavenet-vocoder) 
 
 you could run nv-wavenet using same docker image when you build for tacotron2
@@ -359,6 +365,11 @@ $python distribute.py -c config.json
 # WaveGlow
 check [official site](https://nv-adlr.github.io/WaveGlow) and [**Ryan Prenger, Rafael Valle, and Bryan Catanzaro, WaveGlow: a Flow-based Generative Network for Speech Synthesis** arxiv 1811.00002](https://arxiv.org/abs/1811.00002)
 
+for more information for glow model, check flow
+
 after NVIDIA release the source code, I'll update it. 
+- [OpenAI Glow Paper, Glow: Generative Flow with Invertible 1×1 Convolutions] (https://d4mucfpksywv.cloudfront.net/research-covers/glow/paper/glow.pdf) 
+- [openAI glow] (https://github.com/openai/glow) 
+- [RealNVP paper](https://arxiv.org/abs/1605.08803) 
 
 
