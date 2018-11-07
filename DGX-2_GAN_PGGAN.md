@@ -33,7 +33,7 @@ done
 - step4. tar each files
 
 ```
-for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `; do tar -cvzf ${dir}.tar.gz ${dir}; done
+$ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `; do tar -cvzf ${dir}.tar.gz ${dir}; done
 ```
 
 - step5. upload each tar.gz file 
@@ -41,6 +41,10 @@ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `; do tar -cvzf ${dir}.
 
 - step6. 
 which is not split zip file so you could extract it in parallel. 
+
+```
+$ time for file in *.tar.gz; do tar -zxf $file; done
+```
 
 ```
 du -h .
@@ -69,6 +73,25 @@ du -h .
 ```
 
 - Step7 . merge whole subfolder 
+```
+$ find /target_dir -type f -exec mv -i -t /dest_dir {} +
+```
 
-- Step8. using preprocessing utility in pggan
+- Step8. count dataset 
+```
+$ time find /mnt/old/dataset/celeba/CelebA-dcgan/tar.gz/img -type f -exec mv -i -t /mnt/old/dataset/celeba/CelebA-dcgan/tar.gz/one {} +
+$ time find /mnt/pggan/dataset/aaa/subdir -type f -exec mv -i -t /mnt/pggan/dataset/aaa/single {} +
+```
 
+- Step10. create CelebA  dataset  
+
+CelebA dataset
+```
+cd /mnt/old/git/pggan-multigpu && 
+time  python dataset_tool.py create_celebahq /mnt/old/git/pggan-multigpu/datasets /mnt/old/dataset/celeba/CelebA-dcgan/Img /mnt/old/dataset/celeba/CelebA-HQ-delta-pggan/deltas
+```
+
+CelebA HD dataset
+```
+time  python dataset_tool.py create_celebahq /mnt/old/git/pggan-multigpu/datasets/ /mnt/old/dataset/celeba/CelebA-dcgan /mnt/old/dataset/celeba/CelebA-HQ-delta-pggan/deltas
+```
