@@ -4,6 +4,8 @@ Unpack DGX-2
 
 
 ### Check system
+this system configuration is  base clock.
+so below benchmark number is slower than NVIDIA's original performance benchmark result.
 
 ```
 $ nvidia-smi -L
