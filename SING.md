@@ -3,7 +3,14 @@
 
 ## devops 
 
-SING use `torch.stft` instead of librosa library. 
+you could use my same docker image for WaveGlow and tacotron2. 
+
+```
+docker pull hryu/pytorch:t2-ngc-18.11
+nvidia-docker run -p8888:8888 hryu/pytorch:t2-ngc-18.11
+``` 
+
+because SING use same libraries and use `torch.stft` instead of librosa library 
 ```
 numpy
 requests
@@ -13,7 +20,19 @@ tqdm
 ```
 
 ## copy model 
-git clone https://github.com/facebookresearch/SING
+git clone https://github.com/facebookresearch/SING.git
+```
+git clone https://github.com/facebookresearch/SING.git
+Cloning into 'SING'...
+remote: Enumerating objects: 19, done.
+remote: Counting objects: 100% (19/19), done.
+remote: Compressing objects: 100% (19/19), done.
+remote: Total 48 (delta 6), reused 1 (delta 0), pack-reused 29
+Unpacking objects: 100% (48/48), done.
+Checking connectivity... done.
+```
+
+
 
 reference [Magenta Nsynth](https://github.com/tensorflow/magenta/tree/master/magenta/models/nsynth) 
 
@@ -66,5 +85,31 @@ nsynth-train
 /mnt/old/dataset/nsynth$ ls raw/nsynth-train/
 audio  examples.json
 
+```
+
+## train
+
+```
+/mnt/old/git/facebookressearch/SING$ python -m sing.train --cuda --data /mnt/old/dataset/nsynth/raw/nsynth-train --checkpoint ch
+ConvolutionalAE(encoder=ConvolutionalEncoder(Sequential(
+  (0): WindowedConv1d(window=hann**2,conv=Conv1d(1, 4096, kernel_size=(1024,), stride=(256,)))
+  (1): ReLU()
+  (2): Conv1d(4096, 4096, kernel_size=(1,), stride=(1,))
+  (3): ReLU()
+  (4): Conv1d(4096, 4096, kernel_size=(1,), stride=(1,))
+  (5): ReLU()
+  (6): Conv1d(4096, 128, kernel_size=(1,), stride=(1,))
+)),decoder=ConvolutionalDecoder(Sequential(
+  (0): Conv1d(128, 4096, kernel_size=(9,), stride=(1,))
+  (1): ReLU()
+  (2): Conv1d(4096, 4096, kernel_size=(1,), stride=(1,))
+  (3): ReLU()
+  (4): Conv1d(4096, 4096, kernel_size=(1,), stride=(1,))
+  (5): ReLU()
+  (6): WindowedConvTranpose1d(window=hann**2,conv_tr=ConvTranspose1d(4096, 1, kernel_size=(1024,), stride=(256,), padding=(768,)))
+
+Training autoencoder
+  1%|▌                                                                | 2176/231212 [00:32<51:36, 73.96ex/s
+  8%|████▊                                                           | 17344/231212 [04:01<47:19, 75.31ex/s
 ```
 
