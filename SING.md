@@ -23,9 +23,9 @@ reference [Magenta Nsynth](https://github.com/tensorflow/magenta/tree/master/mag
 
 Magenta team provide [Nsynth Dataset](https://magenta.tensorflow.org/datasets/nsynth) 
 
-Train [tfrecord | [json/wav](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-train.jsonwav.tar.gz)]: A training set with 289,205 examples. Instruments do not overlap with valid or test.
-Valid [tfrecord | [json/wav](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-valid.jsonwav.tar.gz)]: A validation set with 12,678 examples. Instruments do not overlap with train.
-Test [tfrecord | [json/wav](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-test.jsonwav.tar.gz)]: A test set with 4,096 examples. Instruments do not overlap with train.
+- Train [[tfrecord](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-train.tfrecord) | [json/wav](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-train.jsonwav.tar.gz)]: A training set with 289,205 examples. Instruments do not overlap with valid or test.
+- Valid [ [tfrecord](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-valid.tfrecord) | [json/wav](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-valid.jsonwav.tar.gz)]: A validation set with 12,678 examples. Instruments do not overlap with train.
+- Test [ [tfrecord](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-test.tfrecord) | [json/wav](http://download.magenta.tensorflow.org/datasets/nsynth/nsynth-test.jsonwav.tar.gz)]: A test set with 4,096 examples. Instruments do not overlap with train.
 
 
 ### download and decompress with progressive bar 
