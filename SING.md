@@ -1,6 +1,8 @@
 
 # facebook research SING
 
+duplicate facebook's SING with DGX-2
+
 ## devops 
 
 you could use my same docker image for WaveGlow and tacotron2. 
@@ -113,3 +115,7 @@ Training autoencoder
   8%|████▊                                                           | 17344/231212 [04:01<47:19, 75.31ex/s
 ```
 
+## multiGPU train in DGX-2 
+will release soon. 
+
+## inference with V100 
