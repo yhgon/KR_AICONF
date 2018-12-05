@@ -59,7 +59,12 @@ nsynth-train.jsonwav.tar.g 100%[========================================>]  22.1
 download finished.. 
   
 start to decompress 
-8.8GiB 0:05:16 [28.4MiB/s] [=======================>                                      ] 39% ETA 0:07:32
+22.2GiB 0:13:11 [28.7MiB/s] [============================================================>] 100%            
+decompress finished .. 
+/mnt/old/dataset/nsynth$ ls raw
+nsynth-train
+/mnt/old/dataset/nsynth$ ls raw/nsynth-train/
+audio  examples.json
 
 ```
 
