@@ -24,16 +24,42 @@ unzip -o test.zip -d ./test | pv -l >/dev/null
 unzip -o train.zip -d ./train | pv -l >/dev/null
 ```
 
-investigate file
+## investigate file
+
 ```
-mkdir samples
-cd samples
+head train.csv 
+Id,Target
+00070df0-bbc3-11e8-b2bc-ac1f6b6435d0,16 0
+000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0,7 1 2 0
+000a9596-bbc4-11e8-b2bc-ac1f6b6435d0,5
+000c99ba-bba4-11e8-b2b9-ac1f6b6435d0,1
+001838f8-bbca-11e8-b2bc-ac1f6b6435d0,18
+001bcdd2-bbb2-11e8-b2ba-ac1f6b6435d0,0
+0020af02-bbba-11e8-b2ba-ac1f6b6435d0,25 2
+002679c2-bbb6-11e8-b2ba-ac1f6b6435d0,0
+00285ce4-bba0-11e8-b2b9-ac1f6b6435d0,2 0
+
+```
+
+```
+mkdir samples_1
+cd samples_1
 cp ../train/00301238-bbb2-11e8-b2ba-ac1f6b6435d0* .
 ls -h 
      62K  00301238-bbb2-11e8-b2ba-ac1f6b6435d0_blue.png
      87K  00301238-bbb2-11e8-b2ba-ac1f6b6435d0_green.png
     142K  00301238-bbb2-11e8-b2ba-ac1f6b6435d0_red.png
     142K  00301238-bbb2-11e8-b2ba-ac1f6b6435d0_yellow.png
+
+
+mkdir samples_2
+cd samples_2
+cp ../train/000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0* .
+ls -h 
+    34K   000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0_blue.png
+    93K   000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0_green.png
+   127K   000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0_red.png
+   131K   000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0_yellow.png
 
 ```
 
