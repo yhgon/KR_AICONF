@@ -26,6 +26,8 @@ unzip -o train.zip -d ./train | pv -l >/dev/null
 
 ## investigate file
 
+
+
 ```
 head -n 20 train.csv 
 Id,Target
@@ -51,6 +53,11 @@ Id,Target
 
 
 ```
+### for color filter  means
+- the protein of interest (green) 
+- plus three cellular landmarks: nucleus (blue),
+- microtubules (red), 
+- endoplasmic reticulum (yellow)
 
 ```
 mkdir samples_1
