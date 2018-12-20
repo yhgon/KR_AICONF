@@ -27,7 +27,7 @@ unzip -o train.zip -d ./train | pv -l >/dev/null
 ## investigate file
 
 ```
-head train.csv 
+head -n 20 train.csv 
 Id,Target
 00070df0-bbc3-11e8-b2bc-ac1f6b6435d0,16 0
 000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0,7 1 2 0
@@ -38,6 +38,17 @@ Id,Target
 0020af02-bbba-11e8-b2ba-ac1f6b6435d0,25 2
 002679c2-bbb6-11e8-b2ba-ac1f6b6435d0,0
 00285ce4-bba0-11e8-b2b9-ac1f6b6435d0,2 0
+002daad6-bbc9-11e8-b2bc-ac1f6b6435d0,7
+002ff91e-bbb8-11e8-b2ba-ac1f6b6435d0,23
+00301238-bbb2-11e8-b2ba-ac1f6b6435d0,21
+0032a07e-bba9-11e8-b2ba-ac1f6b6435d0,24 0
+00344514-bbc2-11e8-b2bb-ac1f6b6435d0,23
+00357b1e-bba9-11e8-b2ba-ac1f6b6435d0,6 2
+00383b44-bbbb-11e8-b2ba-ac1f6b6435d0,25
+0038d6a6-bb9a-11e8-b2b9-ac1f6b6435d0,25 0
+003957a8-bbb7-11e8-b2ba-ac1f6b6435d0,25
+003feb6e-bbca-11e8-b2bc-ac1f6b6435d0,0
+
 
 ```
 
