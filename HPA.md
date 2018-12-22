@@ -127,3 +127,27 @@ Labels for Dataset
 wget https://storage.googleapis.com/kaggle-human-protein-atlas/test_full_size.7z
 wget https://storage.googleapis.com/kaggle-human-protein-atlas/train_full_size.7z
 ```
+
+## decompress raw dataset 
+#### test dataset(138GB)
+
+```
+mkdir full_size/test
+cd full_size/test
+p7zip -d ../test_full_size.7z | pv -l >/dev/null
+du -h full_size/test
+138G    full_size/test
+```
+
+#### train dataset 
+```
+mkdir full_size/train
+cd full_size/train
+p7zip -d ../train_full_size.7z | pv -l >/dev/null
+du -h full_size/train
+ 
+
+```
+
+
+```
