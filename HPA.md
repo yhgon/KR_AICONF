@@ -117,3 +117,13 @@ Labels for Dataset
 26.  Cytoplasmic bodies   
 27.  Rods & rings
 ```
+
+
+## download raw dataset (250GB)
+-  test_full_size.7z	  78.24GB	 
+-  train_full_size.7z	189.13GB	
+
+```
+wget https://storage.googleapis.com/kaggle-human-protein-atlas/test_full_size.7z
+wget https://storage.googleapis.com/kaggle-human-protein-atlas/train_full_size.7z
+```
