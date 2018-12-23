@@ -27,7 +27,12 @@ unzip -o train.zip -d ./train | pv -l >/dev/null
 ## investigate file
 
 
+```
+# of train files : 124,288 items(RGBY) --> 31,072 images
+# of test  files :  46,808 items(RGBY) --> 11,702 images
+```
 
+labels 
 ```
 head -n 20 train.csv 
 Id,Target
@@ -128,6 +133,12 @@ wget https://storage.googleapis.com/kaggle-human-protein-atlas/test_full_size.7z
 wget https://storage.googleapis.com/kaggle-human-protein-atlas/train_full_size.7z
 ```
 
+
+```
+# of train files : 124,288 items(RGBY) --> 31,072 images
+# of test  files :  46,808 items(RGBY) --> 11,702 images
+```
+
 ## decompress raw dataset 
 #### test dataset(138GB)
 
@@ -145,9 +156,76 @@ mkdir full_size/train
 cd full_size/train
 p7zip -d ../train_full_size.7z | pv -l >/dev/null
 du -h full_size/train
- 
 
 ```
 
+class
+```
+ 0.  Nucleoplasm                    Nucleus-Nucleoplasm  (핵질) 
+ 1.  Nuclear membrane               Nucleus-Nuclear membrane-Nuclear membrane  
+ 2.  Nucleoli                       Nucleus-Nucleoli (인) 
+ 3.  Nucleoli fibrillar center      Nucleus-Nucleoli-Nucleoli fibrillar center
+ 4.  Nuclear speckles               Nucleus-Nucleoplasm-Nuclear speckles  
+ 5.  Nuclear bodies                 Nucleus-Nucleoplasm-Nuclear bodies 
+ 6.  Endoplasmic reticulum          secretory-Endoplasmic reticulum (소포체 ER)
+ 7.  Golgi apparatus                secretory-Golgi apparatus 
+ 8.  Peroxisomes                    secretory-Vesicles-Peroxisomes
+ 9.  Endosomes                      secretory-Vesicles-Endosomes
+10.  Lysosomes                      secretory-Vesicles-Lysosomes (리소좀 : 골지 복합체에서 나옴. 세포질에 있음) 
+11.  Intermediate filaments         cytoplasm-Intermediate filaments  (세포골격2. 중간섬유) 
+12.  Actin filaments                cytoplasm-Actin filaments  (세포골격3. 미세섬유 : microfilaments) 
+13.  Focal adhesion sites           cytoplasm-Actin filaments-Focal adhesion sites  (세포골격3.
+14.  Microtubules                   cytoplasm-Microtubules  (세포골격1. 미세소관) 
+15.  Microtubule ends               cytoplasm-Microtubules-Microtubule ends
+16.  Cytokinetic bridge             cytoplasm-Microtubules-Cytokinetic bridge
+17.  Mitotic spindle                cytoplasm-Microtubules-Mitotic spindle
+18.  Microtubule organizing center  cytoplasm--Centrosome-Microtubule organizing center
+19.  Centrosome                     cytoplasm-Centrosome (중심체) 
+20.  Lipid droplets                 secretory-Vesicles-Lipid droplets
+21.  Plasma membrane                secretory-Plasma Membrane
+22.  Cell junctions                 secretory-Plasma Membrane -Cell junctions  
+23.  Mitochondria                   cytoplasm-Mitochondria(미토콘드리아) 
+24.  Aggresome                      cytoplasm-Cytosol-Aggresome
+25.  Cytosol                        cytoplasm-Cytosol
+26.  Cytoplasmic bodies             cytoplasm-Cytosol-Cytoplasmic bodies
+27.  Rods & rings                   cytoplasm-Cytosol-Rods & rings
+```
 
+top3 sub category
+```
+Nucleus- 핵 
+cytoplasm 세포질 
+secretory 분비
+```
+
+count of each categories
+```
+Cytokinetic bridge : 530
+Nucleoplasm  : 12885
+Golgi apparatus  : 2822
+Nuclear membrane: 1254
+Nucleoli: 3621
+Nuclear bodies: 2513
+Microtubule organizing center: 902
+Cytosol: 8228
+Mitochondria: 2965
+Plasma membrane: 3777
+Aggresome: 322
+Endoplasmic reticulum: 1008
+Intermediate filaments: 1093
+Nucleoli fibrillar center: 1561
+Actin filaments: 688
+Focal adhesion sites: 537
+Microtubules: 1066
+Nuclear speckles: 1858
+Lipid droplets: 172
+Cell junctions: 802
+Mitotic spindle: 210
+Centrosome: 1482
+Peroxisomes: 53
+Endosomes: 45
+Lysosomes: 28
+Cytoplasmic bodies: 328
+Rods & rings: 11
+Microtubule ends: 21
 ```
