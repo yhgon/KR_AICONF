@@ -150,7 +150,7 @@ du -h full_size/test
 138G    full_size/test
 ```
 
-#### train dataset 
+#### train dataset (320GB)
 ```
 mkdir full_size/train
 cd full_size/train
@@ -158,6 +158,93 @@ p7zip -d ../train_full_size.7z | pv -l >/dev/null
 du -h full_size/train
 
 ```
+
+7z is efficient compress file format but it's hard to handle single large file.
+so I'll split the file.
+
+move subfolders each 5000 images 
+```
+#!/bin/bash
+c=1; 
+d=1; 
+mkdir -p SUB_${d}
+for tif_filelist in *.tif
+do
+  if [ $c -eq 5000 ]
+  then
+    d=$(( d + 1 )); c=0; mkdir -p SUB_${d}
+  fi
+  mv "$tif_filelist" SUB_${d}/
+  c=$(( c + 1 ))
+done
+```
+
+result
+
+test datasets
+```
+15G	test/SUB_8
+15G	test/SUB_2
+15G	test/SUB_5
+15G	test/SUB_1
+5.5G	test/SUB_10
+15G	test/SUB_6
+15G	test/SUB_4
+15G	test/SUB_3
+16G	test/SUB_9
+15G	test/SUB_7
+143G	test
+```
+
+train datasets
+```
+13G	train/SUB_23
+13G	train/SUB_11
+13G	train/SUB_1
+14G	train/SUB_6
+14G	train/SUB_16
+14G	train/SUB_24
+13G	train/SUB_20
+14G	train/SUB_2
+13G	train/SUB_8
+13G	train/SUB_18
+14G	train/SUB_12
+13G	train/SUB_15
+13G	train/SUB_5
+13G	train/SUB_7
+13G	train/SUB_17
+12G	train/SUB_25
+13G	train/SUB_22
+13G	train/SUB_10
+13G	train/SUB_14
+13G	train/SUB_4
+13G	train/SUB_21
+14G	train/SUB_9
+13G	train/SUB_3
+13G	train/SUB_13
+14G	train/SUB_19
+324G	train
+
+```
+
+compress each files 
+```
+for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `; do tar -cvzf ${dir}.tar.gz ${dir}; done
+```
+
+upload the files be careful train/test folder
+
+decompress each files
+```
+time for file in *.tar.gz; do tar -zxf $file; done
+```
+
+merge whole files in main folder 
+```
+find /target_dir -type f -exec mv -i -t /dest_dir {} +
+```
+
+
 
 class
 ```
