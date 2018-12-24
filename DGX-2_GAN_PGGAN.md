@@ -41,10 +41,16 @@ $ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `; do tar -cvzf ${dir
 
 - step6. 
 which is not split zip file so you could extract it in parallel. 
+if you have multicores, you could decompress with multicores. 
 
 ```
 $ time for file in *.tar.gz; do tar -zxf $file; done
+time find . -type f -name "*.tar.gz" | xargs -I {} -P 25 tar -xf {}
+time find . -type f -name "*.tar.gz" | xargs -I {} -P 10 tar -xf {}
 ```
+ 
+
+ 
 
 ```
 du -h .
