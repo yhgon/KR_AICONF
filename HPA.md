@@ -162,7 +162,7 @@ du -h full_size/train
 7z is efficient compress file format but it's hard to handle single large file.
 so I'll split the file.
 
-move subfolders each 5000 images 
+#### move subfolders each 5000 images 
 ```
 #!/bin/bash
 c=1; 
@@ -227,14 +227,14 @@ train datasets
 
 ```
 
-compress each files 
+#### compress each files 
 ```
 for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `; do tar -cvzf ${dir}.tar.gz ${dir}; done
 ```
 
 upload the files be careful train/test folder
 
-decompress each files
+#### decompress each files
 ```
 time for file in *.tar.gz; do tar -zxf $file; done
 ```
@@ -246,7 +246,7 @@ time find . -type f -name "*.tar.gz" | xargs -I {} -P 25 tar -xf {}
 time find . -type f -name "*.tar.gz" | xargs -I {} -P 10 tar -xf {}
 ```
 
-monitor status every 10 sec during decompressing the files 
+#### monitor status every 10 sec during decompressing the files 
 ```
 watch -n 10 du -h /mnt/hpa_full/test/test_tar/SUB_1 /mnt/hpa_full/train/train_tar/SUB_1
 
@@ -265,11 +265,34 @@ Every 10.0s: du -h /mnt/hpa_full/test/test_tar/SUB_1 /mnt/hpa_full/train/train_t
 ```
 
 
-merge whole files in main folder 
+#### merge whole files in main folder 
 ```
 find /target_dir -type f -exec mv -i -t /dest_dir {} +
 ```
 
+```
+mkdir merge_train
+find subfolder_train -type f -exec mv -i -t merge_train {} +
+
+find merge_train -type f | wc -l
+124288
+
+mkdir merge_test
+find subfolder_test -type f -exec mv -i -t merge_test {} +
+
+find merge_test -type f | wc -l
+46808
+
+```
+#### convert tif(4MB) to png(317KB)
+
+example of files with lossless compression
+```
+000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0_blue.tif  2048x2048    4MB
+000a6c98-bb9b-11e8-b2b9-ac1f6b6435d0_blue.png  2048x2048  317KB
+```
+
+utility ImageMagic
 
 
 class
