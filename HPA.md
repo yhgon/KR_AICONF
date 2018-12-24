@@ -255,6 +255,13 @@ Every 10.0s: du -h /mnt/hpa_full/test/test_tar/SUB_1 /mnt/hpa_full/train/train_t
 2.6G    /mnt/hpa_full/test/test_tar/SUB_1
 3.8G    /mnt/hpa_full/train/train_tar/SUB_1
 
+
+Every 10.0s: du -h /mnt/hpa_full/test/test_tar/SUB_1 /mnt/hpa_full/train/train_tar/...  Mon Dec 24 00:18:00 2018
+
+3.8G    /mnt/hpa_full/test/test_tar/SUB_1
+4.5G    /mnt/hpa_full/train/train_tar/SUB_1
+
+
 ```
 
 
