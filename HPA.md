@@ -239,6 +239,25 @@ decompress each files
 time for file in *.tar.gz; do tar -zxf $file; done
 ```
 
+if you have multicores, you could decompress with multicores. 
+25 cores for train dataset, 10 cores for test dataset
+```
+time find . -type f -name "*.tar.gz" | xargs -I {} -P 25 tar -xf {}
+time find . -type f -name "*.tar.gz" | xargs -I {} -P 10 tar -xf {}
+```
+
+monitor status every 10 sec during decompressing the files 
+```
+watch -n 10 du -h /mnt/hpa_full/test/test_tar/SUB_1 /mnt/hpa_full/train/train_tar/SUB_1
+
+Every 10.0s: du -h /mnt/hpa_full/test/test_tar/SUB_1 /mnt/hpa_full/train/train_tar/...  Mon Dec 24 00:16:41 2018
+
+2.6G    /mnt/hpa_full/test/test_tar/SUB_1
+3.8G    /mnt/hpa_full/train/train_tar/SUB_1
+
+```
+
+
 merge whole files in main folder 
 ```
 find /target_dir -type f -exec mv -i -t /dest_dir {} +
