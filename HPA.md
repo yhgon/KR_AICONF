@@ -294,6 +294,125 @@ example of files with lossless compression
 
 utility ImageMagic
 
+```
+mkdir train_full_png
+cd merge_train
+time find . -type f -name "*.tif" | parallel -j 24 convert -quiet  {}  ../train_full_png/{.}.png
+cd ..
+
+```
+
+monitoring
+
+```
+monitor_convert_train.sh
+DIR="train_full_png"
+OUT="$(du -h  ${DIR} |  awk '{print $1}' )"
+
+echo "convert result : ${OUT} from original 320G"
+
+watch -n 20 monitor_convert.sh 
+```
+
+- PNG : 220GB
+- TIF : 320GB
+
+```
+du -h merge_train train_full_png
+320G	merge_train
+220G	train_full_png
+
+
+ls merge_train | wc -l
+124288
+
+ls train_full_png | wc -l
+124288
+```
+
+eliminate TIFF file and folders
+```
+mkdir empty_folder
+time rsync -a --delete ./empty_folder/ ./merge_train/
+time rsync -a --delete ./empty_folder/ ./tar_files_train/
+
+```
+
+split and move to subfolders 
+```
+cd train_full_png
+sh ../subfolder_png_train_full.sh
+
+```
+```
+#!/bin/bash
+c=1; 
+d=1; 
+mkdir -p train_png_sub_${d}
+for png_filelist in *.png
+do
+  if [ $c -eq 5000 ]
+  then
+    d=$(( d + 1 )); c=0; mkdir -p train_png_sub_${d}
+  fi
+  mv "$png_filelist" train_png_sub_${d}/
+  c=$(( c + 1 ))
+done
+
+```
+
+```
+du -h .
+9.0G	./train_png_sub_24
+9.0G	./train_png_sub_16
+9.0G	./train_png_sub_2
+8.9G	./train_png_sub_8
+8.8G	./train_png_sub_5
+8.8G	./train_png_sub_11
+8.8G	./train_png_sub_23
+8.9G	./train_png_sub_15
+8.9G	./train_png_sub_1
+9.0G	./train_png_sub_6
+8.7G	./train_png_sub_18
+9.0G	./train_png_sub_12
+8.8G	./train_png_sub_20
+8.7G	./train_png_sub_10
+8.7G	./train_png_sub_22
+8.9G	./train_png_sub_4
+9.0G	./train_png_sub_9
+8.8G	./train_png_sub_3
+7.6G	./train_png_sub_25
+8.7G	./train_png_sub_17
+8.9G	./train_png_sub_13
+9.0G	./train_png_sub_19
+8.8G	./train_png_sub_21
+8.8G	./train_png_sub_7
+8.8G	./train_png_sub_14
+220G	.
+```
+
+
+
+compress subfolders of png files in parallel 
+```
+cd train_full_png
+time ls | parallel --no-notice -j$(ls |wc -l) tar -czf ../tar/{}.tar.gz {}
+
+watch -n 5 ls -alh tar/train_png_sub_1.tar.gz
+
+
+Every 5.0s: ls -alh train_png_sub_1.tar.gz                                              Mon Dec 24 15:30:50 2018
+
+-rw-r--r--+ 1 25223 dip 1.9G Dec 24 15:30 train_png_sub_1.tar.gz
+
+
+Every 5.0s: ls -alh train_png_sub_1.tar.gz                                              Mon Dec 24 15:31:11 2018
+
+-rw-r--r--+ 1 25223 dip 2.2G Dec 24 15:31 train_png_sub_1.tar.gz
+
+
+```
+
 
 class
 ```
