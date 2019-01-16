@@ -1,0 +1,132 @@
+## for TTS server 
+
+# Multi-Process Service (MPS) example with the nbody CUDA sample
+
+# export NVIDIA_VISIBLE_DEVICES=0
+# export CUDA_MPS_ACTIVE_THREAD_PERCENTAGE=33
+# docker-compose up
+
+version: '2.3'
+
+services:
+    # From the MPS documentation:
+    # When using MPS it is recommended to use EXCLUSIVE_PROCESS mode to ensure
+    # that only a single MPS server is using the GPU, which provides additional
+    # insurance that the MPS server is the single point of arbitration between
+    # all CUDA processes for that GPU.
+    exclusive-mode-tts:
+        image: debian:stretch-slim
+        command: nvidia-smi -c EXCLUSIVE_PROCESS
+        # https://github.com/nvidia/nvidia-container-runtime#environment-variables-oci-spec
+        # NVIDIA_VISIBLE_DEVICES will default to "all" (from file .env), unless
+        # the variable is exported on the command-line.
+        environment:
+          - "NVIDIA_VISIBLE_DEVICES"
+          - "NVIDIA_DRIVER_CAPABILITIES=utility"
+        runtime: nvidia
+        network_mode: none
+        # CAP_SYS_ADMIN is required to modify the compute mode of the GPUs.
+        # This capability is granted only to this ephemeral container, not to
+        # the MPS daemon.
+        cap_add:
+          - SYS_ADMIN
+
+    mps-daemon-tts:
+        image: nvidia/mps
+        container_name: mps-daemon-tts
+        restart: on-failure
+        # The "depends_on" only guarantees an ordering for container *start*:
+        # https://docs.docker.com/compose/startup-order/
+        # There is a potential race condition: the MPS or CUDA containers might
+        # start before the exclusive compute mode is set. If this happens, one
+        # of the CUDA application will fail to initialize since MPS will not be
+        # the single point of arbitration for GPU access.
+        depends_on:
+          - exclusive-mode-tts
+        environment:
+          - "NVIDIA_VISIBLE_DEVICES"
+          - "CUDA_MPS_ACTIVE_THREAD_PERCENTAGE"
+        runtime: nvidia
+        init: true
+        network_mode: none
+        ulimits:
+          memlock:
+            soft: -1
+            hard: -1
+        # The MPS control daemon, the MPS server, and the associated MPS
+        # clients communicate with each other via named pipes and UNIX domain
+        # sockets. The default directory for these pipes and sockets is
+        # /tmp/nvidia-mps.
+        # Here we share a tmpfs between the applications and the MPS daemon.
+        volumes:
+          - nvidia_mps:/tmp/nvidia-mps
+
+    tts_a:
+        depends_on:
+          - mps-daemon-tts
+        image: hryu/pytorch:t2-4_ngc_18.11-nltk
+        environment:
+          - "NVIDIA_VISIBLE_DEVICES=3"
+        runtime: nvidia
+        ipc: container:mps-daemon-tts
+        scale: 1
+        ports: 
+          - 6001:8888
+        volumes:
+          - nvidia_mps:/tmp/nvidia-mps
+          - /home-2/hryu:/mnt/home
+        command: "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root  --NotebookApp.token='' --notebookDir=/mnt/home"
+
+    tts_b:
+        depends_on:
+          - mps-daemon-tts
+        image: hryu/pytorch:t2-4_ngc_18.11-nltk
+        environment:
+          - "NVIDIA_VISIBLE_DEVICES=3"
+        runtime: nvidia
+        ipc: container:mps-daemon-tts
+        scale: 1
+        ports:
+          - 6002:8888
+        volumes:
+          - nvidia_mps:/tmp/nvidia-mps
+          - /home-2/hryu:/mnt/home
+        command: "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root  --NotebookApp.token='' --notebookDir=/mnt/home" 
+
+    tts_c:
+        depends_on:
+          - mps-daemon-tts
+        image: hryu/pytorch:t2-4_ngc_18.11-nltk
+        environment:
+          - "NVIDIA_VISIBLE_DEVICES=5"
+        runtime: nvidia
+        ipc: container:mps-daemon-tts
+        scale: 1
+        ports:
+          - 6003:8888
+        volumes:
+          - nvidia_mps:/tmp/nvidia-mps
+          - /home-2/hryu:/mnt/home
+        command: "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root  --NotebookApp.token='' --notebookDir=/mnt/home"    
+    tts_d:
+        depends_on:
+          - mps-daemon-tts
+        image: hryu/pytorch:t2-4_ngc_18.11-nltk
+        environment:
+          - "NVIDIA_VISIBLE_DEVICES=5"
+        runtime: nvidia
+        ipc: container:mps-daemon-tts
+        scale: 1
+        ports:
+          - 6004:8888
+        volumes:
+          - nvidia_mps:/tmp/nvidia-mps
+          - /home-2/hryu:/mnt/home
+        command: "jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root  --NotebookApp.token='' --notebookDir=/mnt/home"
+
+
+volumes:
+    nvidia_mps:
+        driver_opts:
+            type: tmpfs
+            device: tmpfs
