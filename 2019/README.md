@@ -47,7 +47,7 @@ https://en.wikipedia.org/wiki/BLEU
 - [hugginface BERT](https://github.com/huggingface/pytorch-pretrained-BERT)
 - [codertimo BERT](https://github.com/codertimo/BERT-pytorch)
 - [hugginface BERT pytorch hub colab](https://colab.research.google.com/drive/1qQlxVZzYw1jYu4u7N51lvyBPIoQO-jY_)
-- [Google BERT colab]https://colab.research.google.com/github/google-research/bert/blob/master/predicting_movie_reviews_with_bert_on_tf_hub.ipynb
+- [Google BERT colab](https://colab.research.google.com/github/google-research/bert/blob/master/predicting_movie_reviews_with_bert_on_tf_hub.ipynb)
 
 ## 2. XLNet on Google COLAB
  - 128 seq_len)으로 작업되어 있습니다.   
