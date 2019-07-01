@@ -11,8 +11,8 @@ https://nlp.stanford.edu/projects/glove/
 https://en.wikipedia.org/wiki/Word2vec
 
 ### FASTTEXT ( subword ngram)
-https://fasttext.cc/
-https://github.com/facebookresearch/fastText
+- https://fasttext.cc/
+- https://github.com/facebookresearch/fastText
 
 ### gensim
 https://radimrehurek.com/gensim/models/fasttext.html 
@@ -43,18 +43,18 @@ https://en.wikipedia.org/wiki/BLEU
 
 
 ## 1. Hugginface BERT pytorch hub on Google COLAB 
-https://github.com/google-research/bert
-https://github.com/huggingface/pytorch-pretrained-BERT
-https://github.com/codertimo/BERT-pytorch
-https://colab.research.google.com/drive/1qQlxVZzYw1jYu4u7N51lvyBPIoQO-jY_
-https://colab.research.google.com/github/google-research/bert/blob/master/predicting_movie_reviews_with_bert_on_tf_hub.ipynb
+- [official BERT](https://github.com/google-research/bert)
+- [hugginface BERT](https://github.com/huggingface/pytorch-pretrained-BERT)
+- [codertimo BERT](https://github.com/codertimo/BERT-pytorch)
+- [hugginface BERT pytorch hub colab](https://colab.research.google.com/drive/1qQlxVZzYw1jYu4u7N51lvyBPIoQO-jY_)
+- [Google BERT colab]https://colab.research.google.com/github/google-research/bert/blob/master/predicting_movie_reviews_with_bert_on_tf_hub.ipynb
 
 ## 2. XLNet on Google COLAB
  - 128 seq_len)으로 작업되어 있습니다.   
  - 12 epoch SQuAD 2.0 pretrained parameter가 제공됩니다.
-https://github.com/zihangdai/xlnet
-https://colab.research.google.com/drive/1LrKtvfWiYPnpzzY_j-6npgIP4gShc5rD
+- https://github.com/zihangdai/xlnet
+- https://colab.research.google.com/drive/1LrKtvfWiYPnpzzY_j-6npgIP4gShc5rD
 
 ## 3. Flair NLP COLAB
-https://github.com/zalandoresearch/flair
-https://colab.research.google.com/drive/1hxEXPJvB-63UGvY-fnN4o3tP04vTFve5 
+- https://github.com/zalandoresearch/flair
+- https://colab.research.google.com/drive/1hxEXPJvB-63UGvY-fnN4o3tP04vTFve5 
