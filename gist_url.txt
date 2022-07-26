@@ -1,1 +1,29 @@
 https://colab.research.google.com/drive/1ANmE2SKzzYICiNu5LzN94WpGXYMs6wVO
+
+
+
+        ## AMP loss 
+        if args.fp16:
+            if args.amp == 'pytorch':
+                scaler.scale(loss).backward()
+            elif args.amp == 'apex':
+                with amp.scale_loss(loss, optimizer, delay_unscale=delay_unscale) as scaled_loss:
+                    scaled_loss.backward()
+        else:
+            loss.backward()
+
+        ## gradient clipping
+        if args.fp16:
+            if args.amp == 'pytorch':
+                scaler.unscale_(optimizer)
+                torch.nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+            elif args.amp == 'apex':
+                torch.nn.utils.clip_grad_norm_(amp.master_params(optimizer), args.clip)
+        else:
+            torch.nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+
+        if args.fp16 and args.amp == 'pytorch':
+            scaler.step(optimizer)
+            scaler.update()
+        else:
+            optimizer.step()      
