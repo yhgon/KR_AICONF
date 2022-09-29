@@ -3,7 +3,7 @@
 ## TUTORIAL - GPU 튜토리얼 (대금)
 
 ### TIME	PROGRAM
- - 13:30~13:40	GPU Bootcamp튜토리얼 소개  문소리 과장 (NVIDIA)
+ - 13:30~13:40	GPU Bootcamp튜토리얼 소개  서완석 상무 (NVIDIA)
  - 13:40~14:30	튜토리얼 Part 1 : OpenMP와 OpenACC이용한 GPU 병렬 프로그래밍 소개  류현곤 부장 (NVIDIA)
  - 14:30~15:30	튜토리얼 Part 2 : OpenACC를 이용한 GPU 병렬 프로그래밍 실습  류현곤 부장 (NVIDIA)
  - 15:30~16:00	Break
