@@ -11,8 +11,18 @@
  - 17:00~17:30	튜토리얼 Part 4 : 프로파일링을 통한 최적화 실습  류현곤 부장 (NVIDIA)
  
  
-[colab jupyter file Link](https://colab.research.google.com/drive/1OxJvMwD7FCP1aE8Kb-qGzW0XuSxW0Yt0?usp=sharing)
 
 
-
+# 실습환경 구축
+- colab.research.google.com 회원가입/로그인
+- 파일 메뉴에서 열기 실행. 
+ - colab에서 실습 jupyter 파일 열기 
+  - [colab jupyter file Link](https://colab.research.google.com/drive/1OxJvMwD7FCP1aE8Kb-qGzW0XuSxW0Yt0?usp=sharing)
+  - [github jupyter file link](https://github.com/yhgon/KR_AICONF/blob/master/ksc22/KSC22_GPU_tutorial.ipynb)
+ - File 메뉴에서  copy in Drive 실행 (개인 실습 환경으로 변경)  
+- DevOps 환경 구축 
+  - GPU 활성화
+  - 연결된 GPU 확인  `!nvidis-smi`
+  - NVIDIA HPC SDK 설치
+- 실습 시작
 
