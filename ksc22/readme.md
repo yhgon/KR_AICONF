@@ -2,6 +2,7 @@
 ### 29 Sep. 2022
 ## TUTORIAL - GPU 튜토리얼 (대금)
 
+[류현곤](hryu@nvidia.com)
 [survey link](https://forms.gle/kYzZUcv6kQv8bGyw8)
 
 ### TIME	PROGRAM
